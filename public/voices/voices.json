@@ -1,0 +1,229 @@
+{
+ "text": "هل تساءلتَ يومًا لماذا تتكرر الأخطاءُ نفسُها عبر التاريخ؟ في هذا الكتاب، يأخذك المؤلف في رحلةٍ ممتعة بين الأفكار والوقائع، ويكشف لك ثلاثةَ دروسٍ قد تغيّر نظرتك إلى العالم. تابِع حتى النهاية.",
+ "voices": [
+  {
+   "id": "ar-JO-SanaNeural",
+   "name": "Sana",
+   "gender": "female",
+   "country": "الأردن",
+   "file": "/voices/ar-JO-SanaNeural.mp3"
+  },
+  {
+   "id": "ar-AE-FatimaNeural",
+   "name": "Fatima",
+   "gender": "female",
+   "country": "الإمارات",
+   "file": "/voices/ar-AE-FatimaNeural.mp3"
+  },
+  {
+   "id": "ar-BH-LailaNeural",
+   "name": "Laila",
+   "gender": "female",
+   "country": "البحرين",
+   "file": "/voices/ar-BH-LailaNeural.mp3"
+  },
+  {
+   "id": "ar-DZ-AminaNeural",
+   "name": "Amina",
+   "gender": "female",
+   "country": "الجزائر",
+   "file": "/voices/ar-DZ-AminaNeural.mp3"
+  },
+  {
+   "id": "ar-SA-ZariyahNeural",
+   "name": "Zariyah",
+   "gender": "female",
+   "country": "السعودية",
+   "file": "/voices/ar-SA-ZariyahNeural.mp3"
+  },
+  {
+   "id": "ar-IQ-RanaNeural",
+   "name": "Rana",
+   "gender": "female",
+   "country": "العراق",
+   "file": "/voices/ar-IQ-RanaNeural.mp3"
+  },
+  {
+   "id": "ar-KW-NouraNeural",
+   "name": "Noura",
+   "gender": "female",
+   "country": "الكويت",
+   "file": "/voices/ar-KW-NouraNeural.mp3"
+  },
+  {
+   "id": "ar-MA-MounaNeural",
+   "name": "Mouna",
+   "gender": "female",
+   "country": "المغرب",
+   "file": "/voices/ar-MA-MounaNeural.mp3"
+  },
+  {
+   "id": "ar-YE-MaryamNeural",
+   "name": "Maryam",
+   "gender": "female",
+   "country": "اليمن",
+   "file": "/voices/ar-YE-MaryamNeural.mp3"
+  },
+  {
+   "id": "ar-TN-ReemNeural",
+   "name": "Reem",
+   "gender": "female",
+   "country": "تونس",
+   "file": "/voices/ar-TN-ReemNeural.mp3"
+  },
+  {
+   "id": "ar-SY-AmanyNeural",
+   "name": "Amany",
+   "gender": "female",
+   "country": "سوريا",
+   "file": "/voices/ar-SY-AmanyNeural.mp3"
+  },
+  {
+   "id": "ar-OM-AyshaNeural",
+   "name": "Aysha",
+   "gender": "female",
+   "country": "عُمان",
+   "file": "/voices/ar-OM-AyshaNeural.mp3"
+  },
+  {
+   "id": "ar-QA-AmalNeural",
+   "name": "Amal",
+   "gender": "female",
+   "country": "قطر",
+   "file": "/voices/ar-QA-AmalNeural.mp3"
+  },
+  {
+   "id": "ar-LB-LaylaNeural",
+   "name": "Layla",
+   "gender": "female",
+   "country": "لبنان",
+   "file": "/voices/ar-LB-LaylaNeural.mp3"
+  },
+  {
+   "id": "ar-LY-ImanNeural",
+   "name": "Iman",
+   "gender": "female",
+   "country": "ليبيا",
+   "file": "/voices/ar-LY-ImanNeural.mp3"
+  },
+  {
+   "id": "ar-EG-SalmaNeural",
+   "name": "Salma",
+   "gender": "female",
+   "country": "مصر",
+   "file": "/voices/ar-EG-SalmaNeural.mp3"
+  },
+  {
+   "id": "ar-JO-TaimNeural",
+   "name": "Taim",
+   "gender": "male",
+   "country": "الأردن",
+   "file": "/voices/ar-JO-TaimNeural.mp3"
+  },
+  {
+   "id": "ar-AE-HamdanNeural",
+   "name": "Hamdan",
+   "gender": "male",
+   "country": "الإمارات",
+   "file": "/voices/ar-AE-HamdanNeural.mp3"
+  },
+  {
+   "id": "ar-BH-AliNeural",
+   "name": "Ali",
+   "gender": "male",
+   "country": "البحرين",
+   "file": "/voices/ar-BH-AliNeural.mp3"
+  },
+  {
+   "id": "ar-DZ-IsmaelNeural",
+   "name": "Ismael",
+   "gender": "male",
+   "country": "الجزائر",
+   "file": "/voices/ar-DZ-IsmaelNeural.mp3"
+  },
+  {
+   "id": "ar-SA-HamedNeural",
+   "name": "Hamed",
+   "gender": "male",
+   "country": "السعودية",
+   "file": "/voices/ar-SA-HamedNeural.mp3"
+  },
+  {
+   "id": "ar-IQ-BasselNeural",
+   "name": "Bassel",
+   "gender": "male",
+   "country": "العراق",
+   "file": "/voices/ar-IQ-BasselNeural.mp3"
+  },
+  {
+   "id": "ar-KW-FahedNeural",
+   "name": "Fahed",
+   "gender": "male",
+   "country": "الكويت",
+   "file": "/voices/ar-KW-FahedNeural.mp3"
+  },
+  {
+   "id": "ar-MA-JamalNeural",
+   "name": "Jamal",
+   "gender": "male",
+   "country": "المغرب",
+   "file": "/voices/ar-MA-JamalNeural.mp3"
+  },
+  {
+   "id": "ar-YE-SalehNeural",
+   "name": "Saleh",
+   "gender": "male",
+   "country": "اليمن",
+   "file": "/voices/ar-YE-SalehNeural.mp3"
+  },
+  {
+   "id": "ar-TN-HediNeural",
+   "name": "Hedi",
+   "gender": "male",
+   "country": "تونس",
+   "file": "/voices/ar-TN-HediNeural.mp3"
+  },
+  {
+   "id": "ar-SY-LaithNeural",
+   "name": "Laith",
+   "gender": "male",
+   "country": "سوريا",
+   "file": "/voices/ar-SY-LaithNeural.mp3"
+  },
+  {
+   "id": "ar-OM-AbdullahNeural",
+   "name": "Abdullah",
+   "gender": "male",
+   "country": "عُمان",
+   "file": "/voices/ar-OM-AbdullahNeural.mp3"
+  },
+  {
+   "id": "ar-QA-MoazNeural",
+   "name": "Moaz",
+   "gender": "male",
+   "country": "قطر",
+   "file": "/voices/ar-QA-MoazNeural.mp3"
+  },
+  {
+   "id": "ar-LB-RamiNeural",
+   "name": "Rami",
+   "gender": "male",
+   "country": "لبنان",
+   "file": "/voices/ar-LB-RamiNeural.mp3"
+  },
+  {
+   "id": "ar-LY-OmarNeural",
+   "name": "Omar",
+   "gender": "male",
+   "country": "ليبيا",
+   "file": "/voices/ar-LY-OmarNeural.mp3"
+  },
+  {
+   "id": "ar-EG-ShakirNeural",
+   "name": "Shakir",
+   "gender": "male",
+   "country": "مصر",
+   "file": "/voices/ar-EG-ShakirNeural.mp3"
+  }
+ ]
+}

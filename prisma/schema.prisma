@@ -1,0 +1,223 @@
+// ===================================================================
+// Books Social System — جداول السيستم بس (schema "social").
+// الكتب نفسها في جدول products بتاع المنصة (public) وبنقراها بـpg
+// في lib/source-db.ts. الحاجة الوحيدة اللي بنكتبها هناك: products.social_priority
+// ===================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String   @default("")
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("admin_users")
+}
+
+/// صف واحد بس (id = 1)
+model Setting {
+  id              Int      @id @default(1)
+  /// كام كتاب ينزل في اليوم (كل كتاب = 7 منشورات)
+  booksPerDay     Int      @default(1) @map("books_per_day")
+  /// مواعيد المنشورات بتوقيت القاهرة "HH:MM" لكل نوع
+  slotTimes       Json     @default("{\"FB_BOOK\":\"10:00\",\"TWEET_1\":\"11:00\",\"SHORT_AR\":\"13:00\",\"FB_QUESTION\":\"16:00\",\"REEL_AR\":\"19:00\",\"TWEET_2\":\"20:00\",\"SHORT_EN\":\"23:00\"}") @map("slot_times")
+  /// وزن الشهرة مقابل الحداثة في الترتيب (0..100)
+  popularityWeight Int     @default(60) @map("popularity_weight")
+  /// أقدم سنة نشر تظهر في الترتيب
+  minYear         Int      @default(2018) @map("min_year")
+  contentRoot     String   @default("D:\\booksplatformContent") @map("content_root")
+  siteBaseUrl     String   @default("https://booksplatform.net") @map("site_base_url")
+  /// الصوت العربي الثابت لكل الكتب (فصحى مبسطة لكل الوطن العربي)
+  arVoiceEngine   String   @default("edge") @map("ar_voice_engine") // edge | elevenlabs
+  arVoice         String   @default("ar-SA-HamedNeural") @map("ar_voice")
+  arRate          String   @default("+0%") @map("ar_rate")
+  arPitch         String   @default("+0Hz") @map("ar_pitch")
+  /// اسم الصوت في ElevenLabs لو المحرك elevenlabs
+  arElevenVoice   String?  @map("ar_eleven_voice")
+  /// الصوت الإنجليزي (OfflineTTS / Kokoro)
+  enVoice         String   @default("af_heart") @map("en_voice")
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("settings")
+}
+
+/// إشارات الشهرة من Open Library و Google Books لكل كتاب
+model BookStat {
+  productId     String    @id @map("product_id")
+  isbn          String?
+  matchedBy     String?   @map("matched_by") // isbn | title
+  olRatings     Int       @default(0) @map("ol_ratings")
+  olRatingAvg   Float?    @map("ol_rating_avg")
+  olWantToRead  Int       @default(0) @map("ol_want_to_read")
+  olReading     Int       @default(0) @map("ol_reading")
+  olAlreadyRead Int       @default(0) @map("ol_already_read")
+  olEditions    Int       @default(0) @map("ol_editions")
+  gbRatings     Int       @default(0) @map("gb_ratings")
+  gbRatingAvg   Float?    @map("gb_rating_avg")
+  /// شهرة المؤلف (مهمة للكتب الجديدة اللي لسه مالهاش قرّاء)
+  authorName    String?   @map("author_name")
+  authorReaders Int       @default(0) @map("author_readers")
+  authorWorks   Int       @default(0) @map("author_works")
+  /// log-scale قبل التطبيع
+  popularityRaw Float     @default(0) @map("popularity_raw")
+  fetchedAt     DateTime? @map("fetched_at")
+  error         String?
+
+  @@index([fetchedAt])
+  @@map("book_stats")
+}
+
+enum BookStatus {
+  QUEUED      // اتختار ومستني الإنتاج
+  PRODUCING   // Claude شغال عليه
+  READY       // المحتوى جاهز ومستني يوم النشر
+  PUBLISHING  // النشر شغال
+  PUBLISHED   // كل منشوراته نزلت
+  FAILED
+}
+
+/// كتاب اتختار يتعمله محتوى
+model ContentBook {
+  id          String     @id @default(cuid())
+  productId   String     @unique @map("product_id")
+  slug        String
+  titleAr     String     @map("title_ar")
+  titleEn     String     @map("title_en")
+  author      String?
+  publisher   String?
+  coverUrl    String?    @map("cover_url")
+  year        Int?
+  /// اسم الفولدر جوه contentRoot
+  folder      String
+  status      BookStatus @default(QUEUED)
+  /// يوم النشر (تاريخ القاهرة، الساعة 00:00 UTC)
+  publishDate DateTime   @map("publish_date") @db.Date
+  position    Int        @default(0)
+  notes       String?
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @default(now()) @updatedAt @map("updated_at")
+  /// قايمة ملفات الفولدر (Claude بيبعتها من جهازك لما السيستم على Coolify)
+  files       Json?
+  filesSyncedAt DateTime? @map("files_synced_at")
+  posts       Post[]
+  messages    BookMessage[]
+
+  @@index([publishDate])
+  @@index([status])
+  @@map("content_books")
+}
+
+enum Platform {
+  YOUTUBE
+  FACEBOOK
+  INSTAGRAM
+  X
+}
+
+enum PostKind {
+  SHORT_AR     // YouTube Short عربي
+  SHORT_EN     // YouTube Short إنجليزي (أجانب)
+  REEL_AR      // Facebook Reel عربي
+  FB_BOOK      // بوست ترشيح الكتاب
+  FB_QUESTION  // بوست سؤال/نقاش
+  TWEET_1      // اقتباس + تصميم
+  TWEET_2      // تغريدة نقاش
+}
+
+enum PostStatus {
+  PENDING    // المحتوى لسه متعملش
+  READY      // جاهز للنشر
+  PUBLISHING // Claude بينشره دلوقتي
+  PUBLISHED
+  FAILED
+  SKIPPED
+}
+
+model Post {
+  id            String      @id @default(cuid())
+  bookId        String      @map("book_id")
+  book          ContentBook @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  kind          PostKind
+  platform      Platform
+  lang          String      @default("ar")
+  scheduledAt   DateTime    @map("scheduled_at")
+  status        PostStatus  @default(PENDING)
+  title         String?
+  text          String?
+  /// المسار جوه فولدر الكتاب (video.mp4، quote.png ...)
+  assetPath     String?     @map("asset_path")
+  link          String?
+  url           String?     // لينك المنشور بعد النشر
+  publishedAt   DateTime?   @map("published_at")
+  error         String?
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @default(now()) @updatedAt @map("updated_at")
+
+  @@unique([bookId, kind])
+  @@index([scheduledAt])
+  @@index([status])
+  @@map("posts")
+}
+
+enum JobKind {
+  PRODUCE   // إنتاج محتوى كتاب (سكريبت، صوت، صور، فيديو، تصاميم)
+  PUBLISH   // نشر منشورات يوم أو كتاب
+  REVISE    // تعديل على محتوى كتاب من الشات أو أزرار الصفحة
+}
+
+enum JobStatus {
+  PENDING
+  RUNNING
+  DONE
+  FAILED
+  CANCELLED
+}
+
+/// طابور المهام اللي Claude بيسحبها من جهازك
+model AgentJob {
+  id         String    @id @default(cuid())
+  kind       JobKind
+  bookId     String?   @map("book_id")
+  /// للنشر: يوم معين
+  day        DateTime? @db.Date
+  /// للتعديل: على إيه (video, clips, images, image:<path>, poster, voice, text:<KIND>, other)
+  target     String?
+  /// للتعديل: طلبك بالظبط
+  instruction String?
+  status     JobStatus @default(PENDING)
+  log        String    @default("")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  startedAt  DateTime? @map("started_at")
+  finishedAt DateTime? @map("finished_at")
+
+  @@index([status, createdAt])
+  @@map("agent_jobs")
+}
+
+enum MessageRole {
+  USER
+  CLAUDE
+}
+
+/// شات الكتاب: طلبات التعديل وردود Claude
+model BookMessage {
+  id        String      @id @default(cuid())
+  bookId    String      @map("book_id")
+  book      ContentBook @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  role      MessageRole
+  body      String
+  target    String?
+  jobId     String?     @map("job_id")
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  @@index([bookId, createdAt])
+  @@map("book_messages")
+}

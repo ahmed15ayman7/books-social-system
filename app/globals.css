@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/* نفس توكنز لوحة تحكم Books Platform */
+@theme {
+  --font-sans: var(--font-arabic), Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+:root {
+  --brand-black: #0b0b0b;
+  --brand-white: #ffffff;
+  --brand-red: #b11e2e;
+  --brand-red-hover: #8b1623;
+  --brand-red-soft: #f8e5e8;
+
+  --brand-gray-50: #fafafa;
+  --brand-gray-100: #f5f5f5;
+  --brand-gray-200: #e5e5e5;
+  --brand-gray-300: #d4d4d4;
+  --brand-gray-400: #a3a3a3;
+  --brand-gray-500: #6b6b6b;
+  --brand-gray-600: #525252;
+  --brand-gray-700: #404040;
+  --brand-gray-800: #262626;
+  --brand-gray-900: #1a1a1a;
+
+  --success: #15803d;
+  --success-soft: #dcfce7;
+  --warning: #ca8a04;
+  --warning-soft: #fef9c3;
+  --info: #1d4ed8;
+  --info-soft: #dbeafe;
+  --error: #dc2626;
+  --error-soft: #fee2e2;
+
+  --admin-bg: var(--brand-gray-50);
+  --admin-surface: var(--brand-white);
+  --admin-surface-muted: var(--brand-gray-100);
+  --admin-text: var(--brand-black);
+  --admin-text-muted: var(--brand-gray-600);
+  --admin-text-subtle: var(--brand-gray-500);
+  --admin-border: var(--brand-gray-200);
+  --admin-border-strong: var(--brand-gray-300);
+  --admin-accent: var(--brand-red);
+  --admin-accent-soft: var(--brand-red-soft);
+  --admin-hover: var(--brand-gray-100);
+  --admin-input-bg: var(--brand-white);
+  --admin-input-border: var(--brand-gray-300);
+}
+
+html { color-scheme: light; }
+body { background: var(--admin-bg); color: var(--admin-text); }
+
+.field {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--admin-input-border);
+  background: var(--admin-input-bg);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 150ms;
+}
+.field:focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px rgb(177 30 46 / 0.12); }
+.field-label { display: block; margin-bottom: 0.375rem; font-size: 0.8125rem; font-weight: 600; color: var(--admin-text); }
+.ltr { direction: ltr; text-align: left; }

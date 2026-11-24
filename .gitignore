@@ -1,0 +1,14 @@
+node_modules
+.next
+.env
+.env.local
+*.tsbuildinfo
+next-env.d.ts
+/storage
+.claude/settings.local.json
+.claude/worktrees/
+exports/
+
+scripts/dev/
+__pycache__/
+*.pyc
